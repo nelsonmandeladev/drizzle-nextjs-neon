@@ -11,6 +11,7 @@ export const usersTable = pgTable("users",
         email: varchar({ length: 255 }).notNull().unique(),
         invitee: uuid("invitee_id").references((): AnyPgColumn => usersTable.id),
         role: rolesEnum().default("guest"),
+        avatarUrl: varchar("avatar_url",{ length: 255 }),
         ...baseColumns
     },
     (table) => [

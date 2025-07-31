@@ -10,6 +10,7 @@ export const postsTable = pgTable(
         title: varchar({length: 256}).notNull(),
         body: varchar({length: 1000}),
         ownerId: uuid("owner_id").references(() => usersTable.id),
+        imageUrl: varchar("image_url",{ length: 255 }),
         ...baseColumns
     },
     (table) => [
