@@ -12,7 +12,6 @@ async function main() {
         lastName: 'Mandela Mandela',
         email: "sn_mandela@gmail.com",
         role: "admin",
-        invitee: 30,
     }
 
     await db.insert(usersTable).values(user);
