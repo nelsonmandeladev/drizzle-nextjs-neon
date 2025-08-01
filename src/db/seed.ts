@@ -1,13 +1,7 @@
 import 'dotenv/config';
-import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
-import { usersTable } from '@/db/schemas/users';
-import { postsTable } from '@/db/schemas/post';
-import { commentsTable } from '@/db/schemas/comments';
+import { usersTable, postsTable, commentsTable } from '@/db';
 import {eq} from "drizzle-orm";
-
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle({ client: sql });
+import {db} from "./instance";
 
 // Helper function to generate unique strings for slugs
 function generateUniqueString(length: number): string {
@@ -19,7 +13,7 @@ function generateUniqueString(length: number): string {
     return result;
 }
 
-// Helper function to get random date within last year
+// Helper function to get random date within the last year
 function getRandomDate(): Date {
     const start = new Date();
     start.setFullYear(start.getFullYear() - 1);

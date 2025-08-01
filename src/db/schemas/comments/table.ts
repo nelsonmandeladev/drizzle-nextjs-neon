@@ -1,9 +1,8 @@
 import * as t from "drizzle-orm/pg-core";
 import { pgTable as table } from "drizzle-orm/pg-core";
-import {postsTable} from "@/db/schemas/post";
-import {usersTable} from "@/db/schemas/users";
-import {baseColumns} from "@/db/schemas/columns.helpers";
-
+import {baseColumns} from "@/db";
+import {postsTable} from "../posts/table";
+import {usersTable} from "../users/table";
 
 export const commentsTable = table("comments",
     {

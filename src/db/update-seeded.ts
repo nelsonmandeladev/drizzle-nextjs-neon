@@ -1,12 +1,9 @@
 import 'dotenv/config';
-import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
 import { eq } from 'drizzle-orm';
-import { usersTable } from '@/db/schemas/users';
-import { postsTable } from '@/db/schemas/post';
+import { postsTable, usersTable } from '@/db/schemas';
+import {db} from "./instance";
 
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle({ client: sql });
+const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
 
 // Generate realistic avatar URLs using various avatar services
 const generateAvatarUrl = (firstName: string, lastName: string): string => {
@@ -20,8 +17,8 @@ const generateAvatarUrl = (firstName: string, lastName: string): string => {
     return services[Math.floor(Math.random() * services.length)];
 };
 
-// Generate realistic post image URLs using Unsplash with tech-related topics
-const generatePostImageUrl = (title: string): string => {
+// Generate realistic post-image URLs using Unsplash with tech-related topics
+const generatePostImageUrl = async (title: string) => {
     const topics = [
         'coding',
         'programming',
@@ -55,8 +52,15 @@ const generatePostImageUrl = (title: string): string => {
         }
     }
 
-    const imageId = Math.floor(Math.random() * 1000) + 1;
-    return `https://images.unsplash.com/photo-1${imageId}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400&q=80&${selectedTopic}`;
+    if (accessKey) {
+        const res = await fetch(
+            `https://api.unsplash.com/photos/random?client_id=${accessKey}&query=${encodeURIComponent(selectedTopic)}&orientation=landscape`
+        );
+        if (res.ok) {
+            const data = await res.json();
+            return data.urls.regular;
+        }
+    }
 };
 
 async function updateExistingData() {
@@ -91,7 +95,7 @@ async function updateExistingData() {
         // Update posts with image URLs
         console.log('🖼️ Updating post image URLs...');
         for (const post of existingPosts) {
-            const imageUrl = generatePostImageUrl(post.title);
+            const imageUrl = await generatePostImageUrl(post.title);
 
             await db.update(postsTable)
                 .set({

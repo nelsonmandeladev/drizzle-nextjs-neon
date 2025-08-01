@@ -1,5 +1,12 @@
-export default function Home() {
+import {listUserQuery} from "@/db";
+import {UsersList} from "@/components";
+import {User} from "@/types";
+
+export default async function HomePage() {
+  const users = await listUserQuery();
   return (
-      <div></div>
+      <div className="w-full">
+            <UsersList users={users as unknown as User[]} />
+      </div>
   );
 }

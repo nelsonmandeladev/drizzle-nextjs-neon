@@ -1,5 +1,5 @@
 import {pgTable, varchar, AnyPgColumn, pgEnum, uniqueIndex, uuid} from "drizzle-orm/pg-core";
-import {baseColumns} from "./columns.helpers";
+import {baseColumns,} from "@/db";
 
 
 export const rolesEnum = pgEnum("roles", ["guest", "user", "admin"]);

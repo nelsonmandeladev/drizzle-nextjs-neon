@@ -1,7 +1,7 @@
 import {pgTable, uniqueIndex, uuid, varchar} from "drizzle-orm/pg-core";
 import {generateUniqueString} from "@/libs/utils";
-import {usersTable} from "@/db/schemas/users";
-import {baseColumns} from "@/db/schemas/columns.helpers";
+import {baseColumns} from "@/db";
+import {usersTable} from "../users/table"
 
 export const postsTable = pgTable(
     "posts",
@@ -17,4 +17,4 @@ export const postsTable = pgTable(
         uniqueIndex("slug_index").on(table.slug),
         uniqueIndex("title_index").on(table.title),
     ]
-)
+);
