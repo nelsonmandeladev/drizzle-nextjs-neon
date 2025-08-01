@@ -1,7 +1,9 @@
 "use client";
 
 import {Post} from "@/types";
-import {Calendar, Clock, MessageCircle} from "lucide-react";
+import {ArrowRight, Calendar, Clock, MessageCircle} from "lucide-react";
+import Link from "next/link";
+import React from "react";
 
 interface PostCardProps {
     post: Post;
@@ -47,9 +49,12 @@ export function PostCard({ post }: PostCardProps) {
             {/* Post Content */}
             <div className="p-6">
                 {/* Title */}
-                <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+                <Link
+                    href={`/posts/${post.slug}`}
+                    className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 group-hover:underline transition-colors duration-200 line-clamp-2"
+                >
                     {post.title}
-                </h2>
+                </Link>
 
                 {/* Body Preview */}
                 <p className="text-gray-600 mb-4 leading-relaxed">
@@ -57,7 +62,7 @@ export function PostCard({ post }: PostCardProps) {
                 </p>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-50">
+                <Link href={`/users/${post.owner.id}`} className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-50">
                     <div className="relative">
                         <img
                             src={post.owner.avatarUrl}
@@ -70,14 +75,14 @@ export function PostCard({ post }: PostCardProps) {
                         />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
+                        <p className="text-sm font-medium text-gray-900 truncate group-hover:underline">
                             {post.owner.firstName} {post.owner.lastName}
                         </p>
-                        <p className="text-xs text-gray-500 truncate">
+                        <p className="text-xs text-gray-500 truncate group-hover:underline">
                             {post.owner.email}
                         </p>
                     </div>
-                </div>
+                </Link>
 
                 {/* Post Meta */}
                 <div className="flex items-center justify-between text-sm text-gray-500">
@@ -91,18 +96,19 @@ export function PostCard({ post }: PostCardProps) {
                             <span>{getReadingTime(post.body)} min read</span>
                         </div>
                     </div>
-                    <div className="flex items-center gap-1 text-blue-600">
+                    <Link href={`/posts/${post.slug}#comments`} className="flex items-center gap-1 text-blue-600">
                         <MessageCircle className="w-4 h-4" />
                         <span className="font-medium">{post.comments.length}</span>
-                    </div>
+                        <ArrowRight size={15} className="opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                    </Link>
                 </div>
             </div>
 
             {/* Hover Action */}
-            <div className="px-6 pb-6">
-                <button className="w-full bg-gray-50 hover:bg-blue-50 text-gray-700 hover:text-blue-600 py-2 px-4 rounded-lg transition-all duration-200 text-sm font-medium group-hover:shadow-sm">
+            <div className="px-6 pb-6 w-full flex">
+                <Link href={`/posts/${post.slug}`} className="w-full text-center bg-gray-50 hover:bg-blue-50 text-gray-700 hover:text-blue-600 py-2 px-4 rounded-lg transition-all duration-200 text-sm font-medium group-hover:shadow-sm">
                     Read More
-                </button>
+                </Link>
             </div>
         </article>
     )

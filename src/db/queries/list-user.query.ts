@@ -1,6 +1,7 @@
 import { db } from "@/db/instance";
-export async function listUserQuery() {
+export async function listUserQuery(limit?: number) {
     return await db.query.usersTable.findMany({
+        limit,
         with: {
             posts: {
                 columns: {id: true}

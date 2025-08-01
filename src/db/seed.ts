@@ -2,16 +2,7 @@ import 'dotenv/config';
 import { usersTable, postsTable, commentsTable } from '@/db';
 import {eq} from "drizzle-orm";
 import {db} from "./instance";
-
-// Helper function to generate unique strings for slugs
-function generateUniqueString(length: number): string {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-}
+import {generateUniqueString} from "@/libs/utils";
 
 // Helper function to get random date within the last year
 function getRandomDate(): Date {

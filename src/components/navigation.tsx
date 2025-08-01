@@ -9,6 +9,12 @@ export function Navigation(){
     const navItems = [
         {
             id: '/' as const,
+            label: 'Home',
+            icon: Home,
+            description: 'View your home page',
+        },
+        {
+            id: '/users' as const,
             label: 'Users',
             icon: Users,
             description: 'View all users'
@@ -28,12 +34,12 @@ export function Navigation(){
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo/Brand */}
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <Home className="w-5 h-5 text-white" />
+                    <div className="flex items-center gap-2.5 md:gap-3">
+                        <div className="size-7 md:size-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <Home className="size-4 md:size-6 text-white" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
+                            <h1 className="text-sm md:text-xl font-bold text-gray-900">DASH-CMS</h1>
                             <p className="text-xs text-gray-500 hidden sm:block">Content Management System</p>
                         </div>
                     </div>
@@ -42,7 +48,7 @@ export function Navigation(){
                     <div className="flex items-center space-x-1">
                         {navItems.map((item) => {
                             const Icon = item.icon;
-                            const isActive = currentPage === item.id;
+                           const isActive = currentPage === item.id || currentPage.startsWith(item.id + '/');
 
                             return (
                                 <Link

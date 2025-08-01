@@ -7,6 +7,7 @@ export function generateUniqueString(length: number = 12): string {
         const randomIndex = Math.floor(Math.random() * characters.length);
         uniqueString += characters[randomIndex];
     }
-
     return uniqueString;
 }
+
+export const isDevelopment = process.env.NODE_ENV !== "production";

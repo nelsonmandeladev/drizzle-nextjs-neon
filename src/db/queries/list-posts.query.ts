@@ -1,8 +1,9 @@
 import {db} from "@/db/instance";
 
-export async function listPostsQuery() {
+export async function listPostsQuery(limit?: number) {
 
     return await db.query.postsTable.findMany({
+        limit,
        with: {
            comments: {
                columns: {
