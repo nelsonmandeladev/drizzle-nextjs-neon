@@ -62,27 +62,29 @@ export function PostCard({ post }: PostCardProps) {
                 </p>
 
                 {/* Author Info */}
-                <Link href={`/users/${post.owner.id}`} className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-50">
-                    <div className="relative">
-                        <img
-                            src={post.owner.avatarUrl}
-                            alt={`${post.owner.firstName} ${post.owner.lastName}`}
-                            className="w-10 h-10 rounded-full object-cover ring-2 ring-gray-100 group-hover:ring-blue-300 transition-all duration-300"
-                            onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = `https://ui-avatars.com/api/?name=${post.owner.firstName}+${post.owner.lastName}&background=6366f1&color=ffffff&size=128`;
-                            }}
-                        />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate group-hover:underline">
-                            {post.owner.firstName} {post.owner.lastName}
-                        </p>
-                        <p className="text-xs text-gray-500 truncate group-hover:underline">
-                            {post.owner.email}
-                        </p>
-                    </div>
-                </Link>
+                {post.owner && (
+                    <Link href={`/users/${post.owner.id}?tab=posts`} className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-50">
+                        <div className="relative">
+                            <img
+                                src={post.owner.avatarUrl}
+                                alt={`${post.owner.firstName} ${post.owner.lastName}`}
+                                className="w-10 h-10 rounded-full object-cover ring-2 ring-gray-100 group-hover:ring-blue-300 transition-all duration-300"
+                                onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = `https://ui-avatars.com/api/?name=${post.owner.firstName}+${post.owner.lastName}&background=6366f1&color=ffffff&size=128`;
+                                }}
+                            />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 truncate group-hover:underline">
+                                {post.owner.firstName} {post.owner.lastName}
+                            </p>
+                            <p className="text-xs text-gray-500 truncate group-hover:underline">
+                                {post.owner.email}
+                            </p>
+                        </div>
+                    </Link>
+                )}
 
                 {/* Post Meta */}
                 <div className="flex items-center justify-between text-sm text-gray-500">

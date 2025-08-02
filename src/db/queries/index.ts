@@ -1,2 +1,3 @@
-export * from "./list-user.query";
-export * from "./list-posts.query";
+export * from "./user.query";
+export * from "./posts.query";
+export * from "./comments.query";

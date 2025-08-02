@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Users, FileText, Home } from 'lucide-react';
+import {Users, FileText, Home, MessageCircle} from 'lucide-react';
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -24,6 +24,12 @@ export function Navigation(){
             label: 'Posts',
             icon: FileText,
             description: 'Browse blog posts'
+        },
+        {
+            id: '/comments' as const,
+            label: 'Comments',
+            icon: MessageCircle,
+            description: 'Browse all comments'
         }
     ];
 
@@ -38,9 +44,9 @@ export function Navigation(){
                         <div className="size-7 md:size-10 bg-blue-600 rounded-lg flex items-center justify-center">
                             <Home className="size-4 md:size-6 text-white" />
                         </div>
-                        <div>
+                        <div className={"hidden sm:block"}>
                             <h1 className="text-sm md:text-xl font-bold text-gray-900">DASH-CMS</h1>
-                            <p className="text-xs text-gray-500 hidden sm:block">Content Management System</p>
+                            <p className="text-xs text-gray-500">Content Management System</p>
                         </div>
                     </div>
 

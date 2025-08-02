@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useMemo, useState} from 'react';
-import {Calendar, FileText, Filter, Plus, Search, TrendingUp, Users} from 'lucide-react';
+import {FileText, Filter, Plus, Search} from 'lucide-react';
 import {PostCard} from "@/components";
 import {Post} from "@/types";
 import Link from "next/link";

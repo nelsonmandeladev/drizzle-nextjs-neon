@@ -4,6 +4,7 @@ import React from 'react';
 import {Calendar, MessageCircle, FileText, Crown, User as UserIcon, Shield, ArrowRight} from 'lucide-react';
 import {User} from "@/types";
 import Link from "next/link";
+import {GetRoleBadge} from "@/components";
 
 interface UserCardProps {
     user: User;
@@ -52,7 +53,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user }) => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg hover:border-gray-200 transition-all duration-200 group">
             {/* Header with Avatar and Role */}
             <Link
-                href={`/users/${user.id}`}
+                href={`/users/${user.id}?tab=posts`}
                 className="flex items-start justify-between mb-4"
             >
                 <div className="flex items-center gap-3">
@@ -81,7 +82,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user }) => {
                         <p className="text-sm text-gray-500 text-nowrap truncate">{user.email}</p>
                     </div>
                 </div>
-                {/*{getRoleBadge(user.role)}*/}
+               <GetRoleBadge role={user.role!} />
             </Link>
 
             {/* Stats */}

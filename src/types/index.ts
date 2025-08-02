@@ -1,10 +1,15 @@
+import {InferInsertModel} from "drizzle-orm";
+import {commentsTable, postsTable, usersTable} from "@/db";
+
+
+export type RoleType = 'admin' | 'user' | 'guest';
 export interface User {
     id: string;
     firstName: string;
     lastName: string;
     email: string;
     invitee: string | null;
-    role: 'admin' | 'user' | 'guest';
+    role: RoleType;
     avatarUrl: string;
     updated_at: string;
     created_at: string;
@@ -26,3 +31,10 @@ export interface Post {
     comments: Array<{ id: string }>;
     owner: User;
 }
+
+export type UserType = InferInsertModel<typeof usersTable>;
+export type PostType = InferInsertModel<typeof postsTable>;
+export type CommentType = InferInsertModel<typeof commentsTable> & {
+    owner: UserType;
+    post: PostType;
+};
