@@ -6,6 +6,7 @@ import {formatDate, getReadingTime} from "@/libs/utils";
 import {AddComment} from "@/components";
 import Link from "next/link";
 import {AsyncCommentsList} from "@/components/comments/async-comments-list";
+import {Post} from "@/types";
 
 interface PostDetailPageProps {
     params: Promise<{slug: string}>
@@ -93,7 +94,7 @@ async function PostDetailPage(props: PostDetailPageProps) {
                         Comments ({post.comments.length});
                     </h2>
 
-                    <AddComment />
+                    <AddComment postId={post.id} ownerId={post.ownerId} />
 
                     <Suspense fallback={<>Loading comments...</>}>
                         <AsyncCommentsList postId={post.id} />
