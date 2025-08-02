@@ -1,5 +1,5 @@
 import {InferInsertModel} from "drizzle-orm";
-import {commentsTable, postsTable, usersTable} from "@/db";
+import {commentsTable, postsTable, usersTable} from "@/db/schemas";
 
 
 export type RoleType = 'admin' | 'user' | 'guest';

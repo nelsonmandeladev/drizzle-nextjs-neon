@@ -5,7 +5,7 @@ interface Props {
     role: RoleType;
 }
 export function GetRoleBadge ({role}: Props) {
-    const baseClasses = "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium";
+    const baseClasses = "inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium";
 
     switch (role) {
         case 'admin':

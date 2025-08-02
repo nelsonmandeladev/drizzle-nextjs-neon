@@ -1,4 +1,4 @@
-import {listUserQuery} from "@/db";
+import {listUserQuery} from "@/db/queries/user.query";
 import {UsersList} from "@/components";
 import {User} from "@/types";
 

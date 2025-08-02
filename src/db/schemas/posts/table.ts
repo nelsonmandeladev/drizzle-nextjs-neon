@@ -1,6 +1,6 @@
 import {pgTable, uniqueIndex, uuid, varchar} from "drizzle-orm/pg-core";
 import {generateUniqueString} from "@/libs/utils";
-import {baseColumns} from "@/db";
+import {baseColumns} from "../columns.helpers";
 import {usersTable} from "../users/table"
 
 export const postsTable = pgTable(

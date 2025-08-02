@@ -1,6 +1,6 @@
 import * as t from "drizzle-orm/pg-core";
 import { pgTable as table } from "drizzle-orm/pg-core";
-import {baseColumns} from "@/db";
+import {baseColumns} from "../columns.helpers";
 import {postsTable} from "../posts/table";
 import {usersTable} from "../users/table";
 

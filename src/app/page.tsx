@@ -1,4 +1,5 @@
-import {listPostsQuery, listUserQuery} from "@/db";
+import {listPostsQuery} from "@/db/queries/posts.query";
+import {listUserQuery} from "@/db/queries/user.query";
 import {PostCard, UserCard} from "@/components";
 import {Post, User} from "@/types";
 import {ArrowRight, FileText, Users} from "lucide-react";

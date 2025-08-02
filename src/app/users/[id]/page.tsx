@@ -1,4 +1,4 @@
-import {getUserDetail} from "@/db";
+import {getUserDetail} from "@/db/queries/user.query";
 import {notFound} from "next/navigation";
 import {GetRoleBadge} from "@/components";
 import {Calendar, FileText, Mail, MessageCircle} from "lucide-react";

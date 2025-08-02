@@ -1,5 +1,5 @@
 import React from 'react';
-import {listCommentsQuery} from "@/db/queries";
+import {listCommentsQuery} from "@/db/queries/comments.query";
 import {ListComments} from "@/components";
 import {CommentType} from "@/types";
 

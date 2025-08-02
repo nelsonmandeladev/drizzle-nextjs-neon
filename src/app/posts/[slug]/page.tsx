@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {getPostDetailQuery} from "@/db";
+import {getPostDetailQuery} from "@/db/queries/posts.query";
 import {notFound} from "next/navigation";
 import {ArrowDown, Calendar, Clock, MessageCircle} from "lucide-react";
 import {formatDate, getReadingTime} from "@/libs/utils";

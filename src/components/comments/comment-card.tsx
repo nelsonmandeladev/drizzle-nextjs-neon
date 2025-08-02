@@ -3,6 +3,7 @@ import {CommentType} from "@/types";
 import {getRelativeTime} from "@/libs/utils";
 import Link from "next/link";
 import {ArrowRight} from "lucide-react";
+import {GetRoleBadge} from "@/components";
 
 interface CommentCardProps {
     comment: CommentType;
@@ -29,9 +30,7 @@ export function CommentCard({comment}: CommentCardProps) {
                             >
                                 {comment.owner.firstName} {comment.owner.lastName}
                             </Link>
-                            <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
-                            {comment.owner.role}
-                            </span>
+                            <GetRoleBadge role={comment.owner.role!} />
                             <span className="text-gray-500">•</span>
                         </Fragment>
                     )}
