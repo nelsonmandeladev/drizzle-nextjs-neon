@@ -6,7 +6,6 @@ import {formatDate, getReadingTime} from "@/libs/utils";
 import {AddComment} from "@/components";
 import Link from "next/link";
 import {AsyncCommentsList} from "@/components/comments/async-comments-list";
-import {Post} from "@/types";
 
 interface PostDetailPageProps {
     params: Promise<{slug: string}>
@@ -31,13 +30,13 @@ async function PostDetailPage(props: PostDetailPageProps) {
                 </div>
 
                 {/* Post Header */}
-                <div className="p-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                <div className="p-4 md:p-6  xl:p-8">
+                    <h1 className="text-xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
                         {post.title}
                     </h1>
 
                     {/* Author and Meta Info */}
-                    <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-100">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-6 border-b border-gray-100">
                         {post.owner && (
                             <div className="flex items-center gap-4">
                                 <img
@@ -56,7 +55,7 @@ async function PostDetailPage(props: PostDetailPageProps) {
                             </div>
                         )}
 
-                        <div className="flex items-center gap-6 text-sm text-gray-500">
+                        <div className="flex flex-wrap items-start md:items-center gap-6 text-sm text-gray-500 mt-5 md:mt-0">
                             <div className="flex items-center gap-1">
                                 <Calendar className="w-4 h-4" />
                                 <span>{formatDate(post.created_at)}</span>
@@ -80,7 +79,7 @@ async function PostDetailPage(props: PostDetailPageProps) {
 
                     {/* Post Body */}
                     <div className="prose prose-lg max-w-none">
-                        <p className="text-gray-700 leading-relaxed text-lg">
+                        <p className="text-gray-700 leading-relaxed text-base">
                             {post.body}
                         </p>
                     </div>
@@ -88,14 +87,12 @@ async function PostDetailPage(props: PostDetailPageProps) {
             </article>
 
             <div className="mt-12" id={"comments"}>
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6  xl:p-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                         <MessageCircle className="w-6 h-6 text-blue-600" />
-                        Comments ({post.comments.length});
+                        Comments ({post.comments.length})
                     </h2>
-
                     <AddComment postId={post.id} ownerId={post.ownerId} />
-
                     <Suspense fallback={<>Loading comments...</>}>
                         <AsyncCommentsList postId={post.id} />
                     </Suspense>

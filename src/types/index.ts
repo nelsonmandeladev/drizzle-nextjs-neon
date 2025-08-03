@@ -11,9 +11,9 @@ export interface User {
     invitee: string | null;
     role: RoleType;
     avatarUrl: string;
-    updated_at: string;
-    created_at: string;
-    deleted_at: string | null;
+    updated_at: Date;
+    created_at: Date;
+    deleted_at: Date | null;
     posts: Array<{ id: string }>;
     comments: Array<{ id: string }>;
 }
@@ -25,9 +25,9 @@ export interface Post {
     body: string;
     ownerId: string;
     imageUrl: string;
-    updated_at: string;
-    created_at: string;
-    deleted_at: string | null;
+    updated_at: Date;
+    created_at: Date;
+    deleted_at: Date | null;
     comments: Array<{ id: string }>;
     owner: User;
 }

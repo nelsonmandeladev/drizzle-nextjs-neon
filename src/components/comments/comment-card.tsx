@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {CommentType} from "@/types";
 import {getRelativeTime} from "@/libs/utils";
 import Link from "next/link";
-import {ArrowRight} from "lucide-react";
+import {ArrowRight, Calendar} from "lucide-react";
 import {GetRoleBadge} from "@/components";
 
 interface CommentCardProps {
@@ -21,21 +21,21 @@ export function CommentCard({comment}: CommentCardProps) {
                 />
             )}
             <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                     {comment.owner && (
                         <Fragment>
                             <Link
                                 href={`/users/${comment.owner.id}?tab=comments#${comment.id}`}
-                                className="font-medium text-gray-900 group-hover:underline group-hover:text-blue-500 transition-all duration-300"
+                                className="font-medium text-gray-900 group-hover:underline group-hover:text-blue-500 transition-all duration-300 text-nowrap"
                             >
                                 {comment.owner.firstName} {comment.owner.lastName}
                             </Link>
                             <GetRoleBadge role={comment.owner.role!} />
-                            <span className="text-gray-500">•</span>
                         </Fragment>
                     )}
-                    <span className="text-sm text-gray-500">
-                      {getRelativeTime(comment.created_at!)}
+                    <span className="text-sm text-gray-500 flex items-center gap-1.5">
+                        <Calendar size={15}/>
+                        {getRelativeTime(comment.created_at!)}
                     </span>
                 </div>
                 <p className="text-gray-700 leading-relaxed">{comment.text}</p>

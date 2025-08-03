@@ -13,9 +13,9 @@ export function generateUniqueString(length: number = 12): string {
 export const isDevelopment = process.env.NODE_ENV !== "production";
 
 export const formatDate = (dateString: Date) => {
-    return dateString.toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString('en-US', {
         year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric'
     });
 };

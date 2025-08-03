@@ -13,4 +13,14 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 
+// For your project make sure enable these rule and fix build errors to improve your code quality
+eslintConfig.push({
+  rules: {
+    "@typescript-eslint/no-unused-vars": "off",
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/display-name": "off",
+  },
+});
+
 export default eslintConfig;

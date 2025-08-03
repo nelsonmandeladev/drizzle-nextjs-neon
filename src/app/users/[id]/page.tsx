@@ -25,12 +25,12 @@ export default async function UserDetailPage(props: UserDetailPageProps) {
     return (
         <Fragment>
             <div className="border-b border-gray-200">
-                <div className="flex items-start gap-6">
+                <div className="flex flex-wrap items-start gap-6 pb-2.5">
                     <div className="relative">
                         <img
                             src={user.avatarUrl!}
                             alt={`${user.firstName} ${user.lastName}`}
-                            className="w-24 h-24 rounded-full object-cover ring-4 ring-gray-100 shadow-lg"
+                            className="size-16 xl:size-24 rounded-full object-cover ring-4 ring-gray-100 shadow-lg"
                         />
                         {user.invitee && (
                             <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center shadow-lg">
@@ -40,8 +40,8 @@ export default async function UserDetailPage(props: UserDetailPageProps) {
                     </div>
 
                     <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                            <h1 className="text-3xl font-bold text-gray-900">
+                        <div className="flex items-center gap-2.5 mb-2">
+                            <h1 className="text-lg xl:text-3xl font-bold text-gray-900">
                                 {user.firstName} {user.lastName}
                             </h1>
                             <GetRoleBadge role={user.role!} />

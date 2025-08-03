@@ -4,26 +4,13 @@ import {Post} from "@/types";
 import {ArrowRight, Calendar, Clock, MessageCircle} from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import {formatDate, getReadingTime} from "@/libs/utils";
 
 interface PostCardProps {
     post: Post;
 }
 
 export function PostCard({ post }: PostCardProps) {
-
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    };
-
-    const getReadingTime = (text: string) => {
-        const wordsPerMinute = 200;
-        const wordCount = text.split(' ').length;
-        return Math.ceil(wordCount / wordsPerMinute);
-    };
 
     const truncateText = (text: string, maxLength: number) => {
         if (text.length <= maxLength) return text;
@@ -51,14 +38,14 @@ export function PostCard({ post }: PostCardProps) {
                 {/* Title */}
                 <Link
                     href={`/posts/${post.slug}`}
-                    className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 group-hover:underline transition-colors duration-200 line-clamp-2"
+                    className="text-lg md:text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 group-hover:underline transition-colors duration-200 line-clamp-2"
                 >
                     {post.title}
                 </Link>
 
                 {/* Body Preview */}
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                    {truncateText(post.body, 120)}
+                <p className="text-sm md:text-base text-gray-600 mb-4 leading-relaxed">
+                    {truncateText(post.body, 118)}
                 </p>
 
                 {/* Author Info */}
@@ -87,20 +74,19 @@ export function PostCard({ post }: PostCardProps) {
                 )}
 
                 {/* Post Meta */}
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            <span>{formatDate(post.created_at)}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            <span>{getReadingTime(post.body)} min read</span>
-                        </div>
+                <div className="flex flex-wrap gap-2.5 items-center justify-between text-xs text-gray-500">
+                    <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span className={"text-nowrap"}>{formatDate(post.created_at)}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span className={"text-nowrap"}>{getReadingTime(post.body)} min read</span>
                     </div>
                     <Link href={`/posts/${post.slug}#comments`} className="flex items-center gap-1 text-blue-600">
                         <MessageCircle className="w-4 h-4" />
                         <span className="font-medium">{post.comments.length}</span>
+                        <span>Comments</span>
                         <ArrowRight size={15} className="opacity-0 transition-all duration-300 group-hover:opacity-100" />
                     </Link>
                 </div>

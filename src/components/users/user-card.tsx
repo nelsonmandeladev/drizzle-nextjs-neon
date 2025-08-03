@@ -1,60 +1,23 @@
 "use client";
 
 import React from 'react';
-import {Calendar, MessageCircle, FileText, Crown, User as UserIcon, Shield, ArrowRight} from 'lucide-react';
+import {Calendar, MessageCircle, FileText, ArrowRight} from 'lucide-react';
 import {User} from "@/types";
 import Link from "next/link";
 import {GetRoleBadge} from "@/components";
+import {formatDate} from "@/libs/utils";
 
 interface UserCardProps {
     user: User;
 }
 
 export const UserCard: React.FC<UserCardProps> = ({ user }) => {
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    };
-
-    const getRoleBadge = (role: string) => {
-        const baseClasses = "inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-colors";
-
-        switch (role) {
-            case 'admin':
-                return (
-                    <span className={`${baseClasses} bg-red-100 text-red-800 border border-red-200`}>
-            <Crown className="w-3 h-3" />
-            Admin
-          </span>
-                );
-            case 'user':
-                return (
-                    <span className={`${baseClasses} bg-blue-100 text-blue-800 border border-blue-200`}>
-            <UserIcon className="w-3 h-3" />
-            User
-          </span>
-                );
-            case 'guest':
-                return (
-                    <span className={`${baseClasses} bg-gray-100 text-gray-600 border border-gray-200`}>
-            <Shield className="w-3 h-3" />
-            Guest
-          </span>
-                );
-            default:
-                return null;
-        }
-    };
-
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg hover:border-gray-200 transition-all duration-200 group">
             {/* Header with Avatar and Role */}
             <Link
                 href={`/users/${user.id}?tab=posts`}
-                className="flex items-start justify-between mb-4"
+                className="relative flex items-start justify-between mb-4"
             >
                 <div className="flex items-center gap-3">
                     <div className="relative">
@@ -82,7 +45,9 @@ export const UserCard: React.FC<UserCardProps> = ({ user }) => {
                         <p className="text-sm text-gray-500 text-nowrap truncate">{user.email}</p>
                     </div>
                 </div>
-               <GetRoleBadge role={user.role!} />
+               <div className="absolute right-0 top-1">
+                   <GetRoleBadge role={user.role!} />
+               </div>
             </Link>
 
             {/* Stats */}
