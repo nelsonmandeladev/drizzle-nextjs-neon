@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { User } from '@/types';
 import {Search, Filter, Users, Plus} from 'lucide-react';
-import {UserCard} from "@/components";
+import {UserForm, UserCard} from "@/components";
 import Link from "next/link";
 
 interface UsersListProps {
@@ -65,9 +65,7 @@ export const UsersList: React.FC<UsersListProps> = ({ users }) => {
                         Showing <span className="font-medium">{filteredUsers.length}</span> of{' '}
                         <span className="font-medium">{users.length}</span> users
                     </p>
-                    <Link href={"/users/new"} className={"flex items-center gap-2.5 text-sm bg-blue-500 hover:bg-blue-700 transition-all duration-150 text-white rounded px-4 py-2"}>
-                        <span className={"hidden md:block"}>Add new user</span> <Plus size={20} />
-                    </Link>
+                    <div className=""><UserForm  /></div>
                 </div>
             </div>
 

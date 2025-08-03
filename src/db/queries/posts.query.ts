@@ -27,7 +27,8 @@ export async function listPostsQuery(limit?: number, ownerId?:string) {
                    avatarUrl: true,
                }
            }: undefined
-       }
+       },
+        orderBy: (posts, {desc}) => (desc(posts.created_at))
     });
 }
 

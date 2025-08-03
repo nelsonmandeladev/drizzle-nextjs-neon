@@ -1,12 +1,12 @@
 import {getUserDetail} from "@/db/queries/user.query";
-import {notFound} from "next/navigation";
-import {GetRoleBadge} from "@/components";
-import {Calendar, FileText, Mail, MessageCircle} from "lucide-react";
+import {DeleteUser, GetRoleBadge, UserForm} from "@/components";
+import {ArrowLeft, Calendar, FileText, Mail, MessageCircle, User2} from "lucide-react";
 import {formatDate} from "@/libs/utils";
 import Link from "next/link";
 import {Fragment, Suspense} from "react";
 import {AsyncListPosts} from "@/components/posts/async-list-posts";
 import {AsyncCommentsList} from "@/components/comments/async-comments-list";
+import {User} from "@/types";
 
 interface UserDetailPageProps {
     params: Promise<{id: string}>;
@@ -19,7 +19,20 @@ export default async function UserDetailPage(props: UserDetailPageProps) {
 
     const user = await getUserDetail(id);
 
-    if (!user) return notFound();
+    if (!user) return (
+        <div className={"flex justify-center items-center w-full h-[85dvh]"}>
+            <div className="w-full max-w-3xl flex flex-col items-center gap-4">
+                <User2 size={100} className={"text-red-300"}/>
+                <p className="text-base text-slate-500 text-center">The user you are looking for does not exists or has been delered!</p>
+                <Link
+                    href={"/users"}
+                    className={"flex items-center gap-2.5 text-blue-500 font-semibold"}
+                >
+                    <ArrowLeft size={20}/> Back to users list
+                </Link>
+            </div>
+        </div>
+    );
 
 
     return (
@@ -63,7 +76,7 @@ export default async function UserDetailPage(props: UserDetailPageProps) {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 text-center">
+                    <div className="w-full md:w-auto grid grid-cols-3 gap-2.5 md:gap-4 xl:gap-6 text-center">
                         <div className="bg-blue-50 rounded-lg p-4">
                             <div className="text-2xl font-bold text-blue-600">{user.posts.length}</div>
                             <div className="text-sm text-blue-800">Posts</div>
@@ -72,7 +85,12 @@ export default async function UserDetailPage(props: UserDetailPageProps) {
                             <div className="text-2xl font-bold text-green-600">{user.comments.length}</div>
                             <div className="text-sm text-green-800">Comments</div>
                         </div>
+                        <div className="space-y-2.5">
+                            <UserForm user={user as unknown as User} />
+                            <DeleteUser user={user as unknown as User} />
+                        </div>
                     </div>
+
                 </div>
             </div>
             <div className="bg-white border-b border-gray-200">

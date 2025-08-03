@@ -30,6 +30,6 @@ export async function listCommentsQuery(limit: number, postId?: string, ownerId?
                 }
             } : undefined,
         },
-        orderBy: (posts, {desc}) => (desc(posts.created_at))
+        orderBy: (comment, {desc}) => (desc(comment.created_at))
     });
 }

@@ -2,20 +2,9 @@ import 'dotenv/config';
 import { eq } from 'drizzle-orm';
 import { postsTable, usersTable } from '@/db/schemas';
 import {db} from "./instance";
+import {generateAvatarUrl} from "@/libs/utils";
 
 const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
-
-// Generate realistic avatar URLs using various avatar services
-const generateAvatarUrl = (firstName: string, lastName: string): string => {
-    const services = [
-        `https://api.dicebear.com/7.x/avataaars/svg?seed=${firstName}${lastName}`,
-        `https://api.dicebear.com/7.x/personas/svg?seed=${firstName}${lastName}`,
-        `https://api.dicebear.com/7.x/initials/svg?seed=${firstName} ${lastName}`,
-        `https://robohash.org/${firstName}${lastName}?set=set4`,
-        `https://avatar.vercel.sh/${firstName}${lastName}`,
-    ];
-    return services[Math.floor(Math.random() * services.length)];
-};
 
 // Generate realistic post-image URLs using Unsplash with tech-related topics
 const generatePostImageUrl = async (title: string) => {
