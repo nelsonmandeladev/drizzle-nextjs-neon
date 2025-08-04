@@ -9,5 +9,5 @@ export async function createCommentMutation({text, postId, ownerId}: {text: stri
     if (comment) {
         revalidatePath(`/posts/${postId}`)
     }
-    return comment;
+    return comment[0];
 }

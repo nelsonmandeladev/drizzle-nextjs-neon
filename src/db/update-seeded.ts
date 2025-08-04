@@ -2,55 +2,7 @@ import 'dotenv/config';
 import { eq } from 'drizzle-orm';
 import { postsTable, usersTable } from '@/db/schemas';
 import {db} from "./instance";
-import {generateAvatarUrl} from "@/libs/utils";
-
-const accessKey = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY;
-
-// Generate realistic post-image URLs using Unsplash with tech-related topics
-const generatePostImageUrl = async (title: string) => {
-    const topics = [
-        'coding',
-        'programming',
-        'technology',
-        'computer',
-        'software',
-        'developer',
-        'web-development',
-        'javascript',
-        'typescript',
-        'react',
-        'nodejs',
-        'database',
-        'api',
-        'css',
-        'docker',
-        'git',
-        'testing',
-        'cloud',
-        'microservices'
-    ];
-
-    // Pick a topic based on the title or randomly
-    let selectedTopic = 'technology';
-    const lowerTitle = title.toLowerCase();
-
-    for (const topic of topics) {
-        if (lowerTitle.includes(topic.replace('-', ' ')) || lowerTitle.includes(topic)) {
-            selectedTopic = topic;
-            break;
-        }
-    }
-
-    if (accessKey) {
-        const res = await fetch(
-            `https://api.unsplash.com/photos/random?client_id=${accessKey}&query=${encodeURIComponent(selectedTopic)}&orientation=landscape`
-        );
-        if (res.ok) {
-            const data = await res.json();
-            return data.urls.regular;
-        }
-    }
-};
+import {generateAvatarUrl, generatePostImageUrl} from "@/libs/utils";
 
 async function updateExistingData() {
     console.log('🔄 Starting update of existing seeded data...');

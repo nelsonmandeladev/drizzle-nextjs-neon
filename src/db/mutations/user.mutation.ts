@@ -30,7 +30,7 @@ export async function createUserMutation({
     if (user) {
         revalidatePath("/users")
     }
-    return user;
+    return user[0];
 }
 
 export async function updateUserMutation({
@@ -58,7 +58,7 @@ export async function updateUserMutation({
     if (user) {
         revalidatePath(`/users/${userId}`);
     }
-    return user;
+    return user[0];
 }
 
 export async function deleteUserMutation(userId: string) {
@@ -69,8 +69,7 @@ export async function deleteUserMutation(userId: string) {
         .where(eq(usersTable.id, userId))
         .returning();
     if (user) {
-        revalidatePath(`/users/${userId}`);
         redirect("/users");
     }
-    return user;
+    return user[0];
 }

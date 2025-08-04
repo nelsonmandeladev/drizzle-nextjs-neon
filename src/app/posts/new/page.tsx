@@ -1,10 +1,11 @@
 import React from 'react';
+import {PostForm} from "@/components";
 
 
 function NewPostPage() {
     return (
-        <div>
-            New Post Page
+        <div className="w-full">
+           <PostForm />
         </div>
     );
 }

@@ -4,8 +4,10 @@ export async function listPostsQuery(limit?: number, ownerId?:string) {
 
     return await db.query.postsTable.findMany({
         limit,
-        where: (posts, {eq}) => {
-            if (ownerId) return eq(posts.ownerId, ownerId)
+        where: (posts, {eq, isNull, and}) => {
+            const conditions = [isNull(posts.deleted_at)];
+            if (ownerId) conditions.push(eq(posts.ownerId, ownerId));
+            return and(...conditions);
         },
         columns: {
             content: false,

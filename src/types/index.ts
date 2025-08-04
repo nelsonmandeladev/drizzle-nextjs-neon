@@ -23,6 +23,7 @@ export interface Post {
     slug: string;
     title: string;
     body: string;
+    content: string;
     ownerId: string;
     imageUrl: string;
     updated_at: Date;

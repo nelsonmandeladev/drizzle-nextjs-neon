@@ -1,11 +1,16 @@
 import React, {Suspense} from 'react';
 import {getPostDetailQuery} from "@/db/queries/posts.query";
 import {notFound} from "next/navigation";
-import {ArrowDown, Calendar, Clock, MessageCircle} from "lucide-react";
+import {ArrowDown, ArrowLeft, Calendar, Clock, Edit, FileText, MessageCircle} from "lucide-react";
 import {formatDate, getReadingTime} from "@/libs/utils";
 import {AddComment} from "@/components";
 import Link from "next/link";
 import {AsyncCommentsList} from "@/components/comments/async-comments-list";
+import {InteractiveViewer} from "@/components/editor/interactive-viewer";
+import {ValueOf} from "platejs";
+import {PlateEditor as PPlate} from "@platejs/core/react";
+import {DeletePost} from "@/components/posts/delete-post";
+import {Post} from "@/types";
 
 interface PostDetailPageProps {
     params: Promise<{slug: string}>
@@ -14,7 +19,20 @@ async function PostDetailPage(props: PostDetailPageProps) {
     const {slug} = await props.params;
     const post = await getPostDetailQuery(slug);
 
-    if (!post) return notFound();
+    if (!post) return (
+        <div className={"flex justify-center items-center w-full h-[85dvh]"}>
+            <div className="w-full max-w-3xl flex flex-col items-center gap-4">
+                <FileText size={100} className={"text-red-300"}/>
+                <p className="text-base text-slate-500 text-center">The post you are looking for does not exists or has been deleted!</p>
+                <Link
+                    href={"/posts"}
+                    className={"flex items-center gap-2.5 text-blue-500 font-semibold"}
+                >
+                    <ArrowLeft size={20}/> Back to posts list
+                </Link>
+            </div>
+        </div>
+    )
 
     return (
         <div className="max-w-4xl mx-auto">
@@ -27,6 +45,15 @@ async function PostDetailPage(props: PostDetailPageProps) {
                         className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    <div className="absolute top-0 right-0 z-20 bg-white/80 rounded p-4 space-y-2.5">
+                        <Link
+                            href={`/posts/${slug}/edit`}
+                            className={"bg-blue-500 text-white flex items-center justify-center px-4 py-1.5 rounded-sm gap-2.5"}
+                        >
+                            <Edit size={20}/> Edit
+                        </Link>
+                        <DeletePost post={post as unknown as Post} />
+                    </div>
                 </div>
 
                 {/* Post Header */}
@@ -82,6 +109,9 @@ async function PostDetailPage(props: PostDetailPageProps) {
                         <p className="text-gray-700 leading-relaxed text-base">
                             {post.body}
                         </p>
+                        {post.content && (
+                            <InteractiveViewer value={JSON.parse(post.content) as unknown as ValueOf<PPlate>} />
+                        )}
                     </div>
                 </div>
             </article>
