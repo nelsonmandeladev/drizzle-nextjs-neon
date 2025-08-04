@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import {getPostDetailQuery} from "@/db/queries/posts.query";
 import {notFound} from "next/navigation";
 import {ArrowDown, ArrowLeft, Calendar, Clock, Edit, FileText, MessageCircle} from "lucide-react";
-import {formatDate, getReadingTime} from "@/libs/utils";
+import {formatDate, getReadingTime, isDevelopment} from "@/libs/utils";
 import {AddComment} from "@/components";
 import Link from "next/link";
 import {AsyncCommentsList} from "@/components/comments/async-comments-list";
@@ -46,12 +46,15 @@ async function PostDetailPage(props: PostDetailPageProps) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                     <div className="absolute top-0 right-0 z-20 bg-white/80 rounded p-4 space-y-2.5">
-                        <Link
-                            href={`/posts/${slug}/edit`}
-                            className={"bg-blue-500 text-white flex items-center justify-center px-4 py-1.5 rounded-sm gap-2.5"}
-                        >
-                            <Edit size={20}/> Edit
-                        </Link>
+                        {isDevelopment && (
+                            <Link
+                                href={`/posts/${slug}/edit`}
+                                className={"bg-blue-500 text-white flex items-center justify-center px-4 py-1.5 rounded-sm gap-2.5"}
+
+                            >
+                                <Edit size={20}/> Edit
+                            </Link>
+                        )}
                         <DeletePost post={post as unknown as Post} />
                     </div>
                 </div>

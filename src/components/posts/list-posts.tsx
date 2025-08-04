@@ -5,6 +5,7 @@ import {FileText, Filter, Plus, Search} from 'lucide-react';
 import {PostCard} from "@/components";
 import {Post} from "@/types";
 import Link from "next/link";
+import {isDevelopment} from "@/libs/utils";
 
 interface PostsListProps {
     posts: Post[];
@@ -77,9 +78,11 @@ export function ListPosts({posts}: PostsListProps) {
                         Showing <span className="font-medium">{filteredAndSortedPosts.length}</span> of{' '}
                         <span className="font-medium">{posts.length}</span> posts
                     </p>
-                    <Link href={"/posts/new"} className={"flex items-center gap-2.5 text-sm bg-blue-500 hover:bg-blue-700 transition-all duration-150 text-white rounded px-4 py-2"}>
-                        <span className={"hidden md:block"}>Add new post</span> <Plus size={20} />
-                    </Link>
+                    {isDevelopment && (
+                        <Link href={"/posts/new"} className={"flex items-center gap-2.5 text-sm bg-blue-500 hover:bg-blue-700 transition-all duration-150 text-white rounded px-4 py-2"}>
+                            <span className={"hidden md:block"}>Add new post</span> <Plus size={20} />
+                        </Link>
+                    )}
                 </div>
             </div>
 
