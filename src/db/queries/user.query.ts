@@ -5,9 +5,11 @@ export async function listUserQuery(limit?: number) {
        where: (users, {isNull}) => isNull(users.deleted_at),
         with: {
             posts: {
-                columns: {id: true}
+                where: (posts, { isNull }) => isNull(posts.deleted_at),
+                columns: { id: true }
             },
             comments: {
+                where: (comments, { isNull }) => isNull(comments.deleted_at),
                 columns: { id: true },
             },
         },
@@ -23,9 +25,11 @@ export async function getUserDetail(id: string) {
         },
         with: {
             posts: {
-                columns: {id: true}
+                where: (posts, { isNull }) => isNull(posts.deleted_at),
+                columns: { id: true }
             },
             comments: {
+                where: (comments, { isNull }) => isNull(comments.deleted_at),
                 columns: { id: true },
             },
         },
